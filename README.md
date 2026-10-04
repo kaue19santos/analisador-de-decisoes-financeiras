@@ -154,36 +154,42 @@ R$ 10.288,33
 
 ---
 
-## 6. Regra de decisão
+## 6. Regra de Decisão
 
-A regra principal da aplicação será:
+A aplicação determinará a alternativa mais vantajosa com base nos valores equivalentes calculados na mesma data de referência.
 
-> **A alternativa que apresentar o maior valor equivalente na mesma data de referência será considerada financeiramente mais vantajosa.**
+A regra de decisão dependerá do tipo da operação:
 
-Por exemplo, considerando:
+* Para **recebimentos**, será considerada mais vantajosa a alternativa que apresentar o **maior Valor Presente**.
+* Para **pagamentos**, será considerada mais vantajosa a alternativa que apresentar o **menor Valor Presente**.
 
-* Alternativa A: R$ 10.000 hoje;
-* Alternativa B: R$ 12.000 daqui a 2 anos;
-* Taxa: 8% ao ano.
+### Compatibilidade entre alternativas
 
-O sistema calcula:
+Para garantir uma comparação financeiramente coerente, as alternativas comparadas deverão possuir o mesmo tipo de operação.
 
-$$
-VP_B = \frac{12.000}{(1+0,08)^2}
-$$
+São permitidas:
 
-$$
-VP_B \approx R\$ 10.288
-$$
+* Recebimento × Recebimento;
+* Pagamento × Pagamento.
 
-A comparação será:
+Não será permitida:
 
-```text
-Alternativa A: R$ 10.000,00
-Alternativa B: R$ 10.288,00
-```
+* Recebimento × Pagamento.
 
-Nesse cenário, a **Alternativa B** será considerada mais vantajosa.
+Caso o usuário informe alternativas de tipos diferentes, o sistema deverá informar que as alternativas não podem ser comparadas e solicitar novos dados.
+
+### Empate
+
+Caso os valores equivalentes das alternativas sejam iguais, o sistema deverá informar que as alternativas são **financeiramente equivalentes**, considerando a taxa de juros e as condições informadas.
+
+### Resumo da decisão
+
+| Tipo             | Regra                                     |
+| ---------------- | ----------------------------------------- |
+| Recebimento      | Maior Valor Presente = melhor alternativa |
+| Pagamento        | Menor Valor Presente = melhor alternativa |
+| Valores iguais   | Alternativas equivalentes                 |
+| Tipos diferentes | Comparação não permitida                  |
 
 ---
 
