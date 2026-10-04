@@ -38,41 +38,50 @@ Dessa forma, a aplicação resolve o problema de **comparar alternativas finance
 
 ---
 
-## 4. Entradas
+## 4. Entradas da Aplicação
 
-O usuário deverá informar os dados necessários para realizar a comparação.
+A aplicação solicitará ao usuário os dados necessários para realizar a comparação entre as alternativas financeiras.
 
-### Dados gerais
+### 4.1 Dados gerais da análise
 
-* Taxa de juros;
-* Período utilizado na análise;
-* Data ou momento de referência.
+| Entrada                    | Descrição                                     |
+| -------------------------- | --------------------------------------------- |
+| Quantidade de alternativas | Número de alternativas que serão comparadas   |
+| Taxa de juros              | Taxa utilizada como referência para a análise |
 
-### Dados de cada alternativa
+Na primeira versão, o sistema trabalhará com **duas alternativas**.
 
-* Nome da alternativa;
-* Valor financeiro;
-* Prazo;
-* Unidade do prazo;
-* Tipo da operação: recebimento ou pagamento.
+### 4.2 Dados de cada alternativa
 
-Inicialmente, a aplicação trabalhará com **duas alternativas**.
+Para cada alternativa, o usuário deverá informar:
 
-### Exemplo de entrada
+| Entrada          | Descrição                                  | Exemplo      |
+| ---------------- | ------------------------------------------ | ------------ |
+| Nome             | Identificação da alternativa               | Receber hoje |
+| Valor            | Valor financeiro da alternativa            | R$ 10.000,00 |
+| Prazo            | Tempo até o recebimento ou pagamento       | 2            |
+| Unidade do prazo | Unidade utilizada para representar o prazo | Anos         |
+| Tipo             | Natureza da operação                       | Recebimento  |
+
+### 4.3 Exemplo de entrada
 
 ```text
+Quantidade de alternativas: 2
+
 Taxa de juros: 8% ao ano
 
-Alternativa A
+Alternativa 1
 Nome: Receber hoje
-Valor: R$ 10.000
-Prazo: 0 anos
+Valor: R$ 10.000,00
+Prazo: 0
+Unidade: anos
 Tipo: Recebimento
 
-Alternativa B
+Alternativa 2
 Nome: Receber daqui a 2 anos
-Valor: R$ 12.000
-Prazo: 2 anos
+Valor: R$ 12.000,00
+Prazo: 2
+Unidade: anos
 Tipo: Recebimento
 ```
 
