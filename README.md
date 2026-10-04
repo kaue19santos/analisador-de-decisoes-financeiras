@@ -248,7 +248,7 @@ ALTERNATIVA B
 Descrição: Receber daqui a 2 anos
 Valor: R$ 12.000,00
 Prazo: 2 anos
-Valor presente: R$ 10.288,33
+Valor equivalente: R$ 10.288,33
 
 ----------------------------------------
 RESULTADO
@@ -280,5 +280,3 @@ O projeto será fundamentado nos seguintes conceitos:
 * Desconto.
 
 ---
-
-Funcionalidades adicionais poderão ser consideradas posteriormente, caso sejam necessárias e não prejudiquem o objetivo principal do trabalho.
