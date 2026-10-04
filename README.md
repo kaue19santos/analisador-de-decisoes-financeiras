@@ -156,7 +156,11 @@ R$ 10.288,33
 
 ## 6. Regra de Decisão
 
-A aplicação determinará a alternativa mais vantajosa com base nos valores equivalentes calculados na mesma data de referência.
+A aplicação determinará a alternativa mais vantajosa com base nos **valores equivalentes calculados na mesma data de referência**, utilizando a taxa de juros e o prazo informados pelo usuário.
+
+Antes da comparação, as alternativas serão convertidas para uma mesma data de referência, permitindo comparar valores que ocorrem em momentos diferentes.
+
+### Regra de decisão
 
 A regra de decisão dependerá do tipo da operação:
 
@@ -178,18 +182,37 @@ Não será permitida:
 
 Caso o usuário informe alternativas de tipos diferentes, o sistema deverá informar que as alternativas não podem ser comparadas e solicitar novos dados.
 
+### Data de referência
+
+A **data de referência será o momento presente (t = 0)**.
+
+Dessa forma, os valores futuros serão convertidos para **Valor Presente (VP)** antes da comparação.
+
+A aplicação deverá utilizar a seguinte relação:
+
+**VP = VF / (1 + i)^n**
+
+Onde:
+
+* **VP** = Valor Presente;
+* **VF** = Valor Futuro;
+* **i** = taxa de juros por período;
+* **n** = número de períodos.
+
+A taxa de juros e o prazo deverão utilizar a mesma periodicidade. Quando necessário, o prazo será convertido para a periodicidade utilizada pela taxa.
+
 ### Empate
 
-Caso os valores equivalentes das alternativas sejam iguais, o sistema deverá informar que as alternativas são **financeiramente equivalentes**, considerando a taxa de juros e as condições informadas.
+Caso os valores equivalentes das alternativas sejam iguais, o sistema deverá informar que as alternativas são **financeiramente equivalentes**, considerando a taxa de juros, o prazo e as demais condições informadas.
 
 ### Resumo da decisão
 
-| Tipo             | Regra                                     |
-| ---------------- | ----------------------------------------- |
-| Recebimento      | Maior Valor Presente = melhor alternativa |
-| Pagamento        | Menor Valor Presente = melhor alternativa |
-| Valores iguais   | Alternativas equivalentes                 |
-| Tipos diferentes | Comparação não permitida                  |
+| Situação                    | Regra                                     |
+| --------------------------- | ----------------------------------------- |
+| Recebimento                 | Maior Valor Presente = melhor alternativa |
+| Pagamento                   | Menor Valor Presente = melhor alternativa |
+| Valores equivalentes iguais | Alternativas financeiramente equivalentes |
+| Tipos diferentes            | Comparação não permitida                  |
 
 ---
 
