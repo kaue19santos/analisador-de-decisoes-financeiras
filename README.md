@@ -87,49 +87,70 @@ Tipo: Recebimento
 
 ---
 
-## 5. Cálculos
+## 5. Cálculos da Aplicação
 
-A aplicação utilizará os conceitos de Valor do Dinheiro no Tempo apresentados na disciplina.
+A aplicação utilizará os conceitos de Valor Presente e Valor Futuro para transformar e comparar valores financeiros que ocorrem em diferentes momentos.
 
-### 5.1 Valor Futuro
+### 5.1 Valor Presente
 
-Quando for necessário determinar o valor futuro de um montante atual:
+Será utilizado quando uma alternativa possuir um valor futuro que precise ser convertido para a data de referência da análise.
 
-$$
-VF = VP(1+i)^n
-$$
+Fórmula:
 
-Onde:
-
-* `VF` = valor futuro;
-* `VP` = valor presente;
-* `i` = taxa de juros por período;
-* `n` = número de períodos.
-
-### 5.2 Valor Presente
-
-Quando for necessário determinar quanto um valor futuro representa no momento atual:
-
-$$
-VP = \frac{VF}{(1+i)^n}
-$$
+VP = VF / (1 + i)^n
 
 Onde:
 
-* `VP` = valor presente;
-* `VF` = valor futuro;
-* `i` = taxa de juros por período;
-* `n` = número de períodos.
+* VP = Valor Presente;
+* VF = Valor Futuro;
+* i = taxa de juros por período;
+* n = número de períodos.
 
-### 5.3 Comparação
+### 5.2 Valor Futuro
 
-Após calcular os valores equivalentes das alternativas, o sistema deverá:
+Será utilizado quando for necessário projetar um valor presente para uma data futura.
 
-1. Colocar as alternativas na mesma referência temporal;
-2. Comparar os valores equivalentes;
-3. Calcular a diferença entre as alternativas;
-4. Calcular, quando aplicável, a diferença percentual;
-5. Determinar qual alternativa apresenta maior valor financeiro.
+Fórmula:
+
+VF = VP × (1 + i)^n
+
+Onde:
+
+* VF = Valor Futuro;
+* VP = Valor Presente;
+* i = taxa de juros por período;
+* n = número de períodos.
+
+### 5.3 Utilização dos cálculos
+
+Para a comparação principal da aplicação, os valores das alternativas serão convertidos para uma mesma data de referência, priorizando o cálculo do Valor Presente.
+
+### 5.4 Diferença absoluta
+
+Após a conversão dos valores, o sistema calculará a diferença absoluta:
+
+Diferença = |Valor A - Valor B|
+
+O resultado será apresentado em reais.
+
+### 5.5 Diferença percentual
+
+A aplicação também calculará a diferença percentual entre as alternativas, utilizando a Alternativa A como referência:
+
+Diferença % = ((Valor B - Valor A) / Valor A) × 100
+
+### 5.6 Arredondamento
+
+Os cálculos intermediários não serão arredondados.
+
+Os resultados apresentados ao usuário serão formatados com:
+
+* 2 casas decimais para valores monetários;
+* 2 casas decimais para percentuais.
+
+Os valores monetários serão apresentados no formato brasileiro, por exemplo:
+
+R$ 10.288,33
 
 ---
 
