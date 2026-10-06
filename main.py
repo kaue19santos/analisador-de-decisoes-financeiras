@@ -74,15 +74,17 @@ def pedir_alternativa(nome, periodicidade):
 def pedir_taxa():
     """
     Captura e valida a Taxa de Juros global utilizada na Análise.
-    Retorna a taxa (float) e a periodicidade escolhida.
+    Retorna a taxa em formato decimal (float) e a periodicidade escolhida.
     """
     print("\n--- TAXA DE JUROS ---")
-    taxa = pedir_numero("Taxa (%): ")
+    taxa_input = pedir_numero("Taxa (%): ")
+    taxa_decimal = taxa_input / 100.0
+    
     periodicidade = pedir_opcao(
         "Periodicidade (mensal/anual): ",
         ["mensal", "anual"]
     )
-    return taxa, periodicidade
+    return taxa_decimal, periodicidade
 
 
 def pedir_quantidade_alternativas():
