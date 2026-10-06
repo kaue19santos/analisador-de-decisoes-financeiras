@@ -280,3 +280,13 @@ O projeto será fundamentado nos seguintes conceitos:
 * Desconto.
 
 ---
+
+---
+
+## 9. Documentação e Comentários
+
+Conforme exigido na **Etapa 6**, todo o código-fonte desta aplicação foi extensivamente documentado. 
+- Foram adicionadas Docstrings explicativas no início de cada módulo detalhando o seu propósito.
+- As funções e classes possuem descrições de comportamento, explicando o fluxo da aplicação.
+- As funções matemáticas que realizam o cálculo de Valor Presente e Futuro documentam a exata fórmula utilizada.
+- As regras de decisão (diferenciação entre recebimentos e pagamentos) e validações estão devidamente comentadas.

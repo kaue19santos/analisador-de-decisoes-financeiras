@@ -1,13 +1,20 @@
+"""
+Módulo Principal (Main)
+Objetivo: Ponto de entrada (Entrypoint) da aplicação.
+Gerencia a interação com o usuário via terminal, capturando e validando as entradas, 
+orquestrando o fluxo das análises financeiras e as exibições dos resultados/relatórios.
+"""
+
 from modelos import Alternativa
-from calculos import (
-    calcular_valor_presente,
-    calcular_diferenca,
-    calcular_diferenca_percentual,
-    comparar_alternativas,
-)
+from calculos import calcular_valor_presente
+from relatorio import gerar_relatorio, salvar_relatorio
 
 
 def pedir_texto(mensagem):
+    """
+    Função auxiliar para capturar entrada de texto.
+    Valida se o usuário não deixou o campo em branco.
+    """
     while True:
         valor = input(mensagem).strip()
         if valor:
@@ -16,6 +23,11 @@ def pedir_texto(mensagem):
 
 
 def pedir_numero(mensagem, minimo=0):
+    """
+    Função auxiliar para capturar entrada numérica (floats).
+    - Substitui vírgulas por pontos, permitindo padrão BR.
+    - Garante que a entrada seja um número e maior ou igual ao parâmetro 'minimo'.
+    """
     while True:
         try:
             valor = float(input(mensagem).replace(",", "."))
@@ -28,16 +40,23 @@ def pedir_numero(mensagem, minimo=0):
 
 
 def pedir_opcao(mensagem, opcoes):
+    """
+    Função auxiliar para capturar uma escolha a partir de uma lista fechada.
+    Validação: Permite apenas as respostas predefinidas, forçando repetição em caso de erro.
+    """
     while True:
         valor = input(mensagem).strip().lower()
         if valor in opcoes:
             return valor
         print(f"Opção inválida. Escolha entre: {', '.join(opcoes)}.")
 
-def formatar_moeda(valor):
-    return f"R$ {valor:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
 
 def pedir_alternativa(nome, periodicidade):
+    """
+    Guia o usuário no preenchimento de todos os dados necessários para montar o objeto Alternativa.
+    Valida as regras de negócio: O valor não pode ser negativo ou nulo, o prazo precisa ser preenchido
+    e o tipo da operação só aceita as strings restritas ("recebimento" ou "pagamento").
+    """
     print(f"\n--- ALTERNATIVA {nome} ---")
 
     return Alternativa(
@@ -53,6 +72,10 @@ def pedir_alternativa(nome, periodicidade):
 
 
 def pedir_taxa():
+    """
+    Captura e valida a Taxa de Juros global utilizada na Análise.
+    Retorna a taxa (float) e a periodicidade escolhida.
+    """
     print("\n--- TAXA DE JUROS ---")
     taxa = pedir_numero("Taxa (%): ")
     periodicidade = pedir_opcao(
@@ -62,43 +85,17 @@ def pedir_taxa():
     return taxa, periodicidade
 
 
-def exibir_resultado(a, b, vp_a, vp_b, taxa, periodicidade):
-    diferenca = calcular_diferenca(vp_a, vp_b)
-    diferenca_percentual = calcular_diferenca_percentual(vp_a, vp_b)
-    resultado = comparar_alternativas(vp_a, vp_b, a.tipo)
-
-    print("\n" + "=" * 40)
-    print("RESULTADO DA ANÁLISE")
-    print("=" * 40)
-    print(f"\nTaxa utilizada: {taxa:.2%} ao {periodicidade}")
-
-    for alternativa, vp in [(a, vp_a), (b, vp_b)]:
-        print(f"""
-ALTERNATIVA {alternativa.nome}
-Valor original: {formatar_moeda(alternativa.valor)}
-Prazo: {alternativa.prazo:g} {alternativa.unidade_prazo}
-Valor equivalente: {formatar_moeda(vp)}""")
-
-    print(f"\nDiferença: {formatar_moeda(diferenca)}")
-    print(f"Diferença percentual: {diferenca_percentual:.2f}%")
-
-    print("\nDECISÃO:")
-
-    if resultado == "equivalentes":
-        print("As alternativas são financeiramente equivalentes.")
-        return
-
-    vencedora = a if resultado == "A" else b
-    regra = "maior" if a.tipo == "recebimento" else "menor"
-
-    print(f"Alternativa {resultado} ({vencedora.nome}) é mais vantajosa.")
-    print(
-        f"Justificativa: para {a.tipo}s, a melhor alternativa "
-        f"é aquela que apresenta o {regra} valor presente."
-    )
-
-
 def nova_analise():
+    """
+    Função core que orquestra a execução da análise.
+    Passos:
+    1. Captura a taxa base.
+    2. Captura os dados das Alternativas A e B.
+    3. Verifica se são da mesma natureza (ambos recebimentos ou ambos pagamentos).
+    4. Chama o módulo de cálculos para descapitalizar os valores ao t=0 (Valor Presente).
+    5. Passa os valores para o módulo de relatórios para formatar e exibir na tela.
+    6. Permite que o usuário salve a análise.
+    """
     taxa, periodicidade = pedir_taxa()
 
     alternativa_a = pedir_alternativa("A", periodicidade)
@@ -115,7 +112,7 @@ def nova_analise():
         alternativa_b.valor, taxa, alternativa_b.prazo
     )
 
-    exibir_resultado(
+    conteudo_relatorio = gerar_relatorio(
         alternativa_a,
         alternativa_b,
         vp_a,
@@ -123,9 +120,19 @@ def nova_analise():
         taxa,
         periodicidade,
     )
+    
+    print("\n" + conteudo_relatorio)
+    
+    salvar = pedir_opcao("\nDeseja salvar este relatório em um arquivo texto? (s/n): ", ["s", "n"])
+    if salvar == "s":
+        salvar_relatorio(conteudo_relatorio)
 
 
 def menu():
+    """
+    Loop principal do programa. Responsável por exibir opções iniciais e permitir que o usuário faça 
+    múltiplas análises sem reiniciar a aplicação, ou encerre de forma controlada.
+    """
     while True:
         print("\n" + "=" * 40)
         print("ANALISADOR DE DECISÕES FINANCEIRAS")
