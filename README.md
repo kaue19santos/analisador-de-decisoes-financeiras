@@ -290,3 +290,14 @@ Conforme exigido na **Etapa 6**, todo o código-fonte desta aplicação foi exte
 - As funções e classes possuem descrições de comportamento, explicando o fluxo da aplicação.
 - As funções matemáticas que realizam o cálculo de Valor Presente e Futuro documentam a exata fórmula utilizada.
 - As regras de decisão (diferenciação entre recebimentos e pagamentos) e validações estão devidamente comentadas.
+
+---
+
+## 10. Testes
+
+Conforme a **Etapa 7**, foi implementada uma suíte de testes unitários (`testes/teste_calculos.py`) focada em validar a precisão matemática da ferramenta. Foram criados testes para:
+- Cálculo exato de Valor Presente e Valor Futuro.
+- Comportamento das fórmulas com diferentes taxas e diferentes prazos.
+- Precisão no cálculo com valores decimais (ponto flutuante).
+- Comportamento de juros zerados (taxa igual a zero).
+- Regras de decisão para alternativas com valores finais iguais (empate/equivalência).
