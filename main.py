@@ -85,17 +85,31 @@ def pedir_taxa():
     return taxa, periodicidade
 
 
+def pedir_quantidade_alternativas():
+    """
+    Solicita a quantidade de alternativas. Na versão atual do projeto, 
+    somente a comparação exata entre 2 alternativas é suportada.
+    """
+    while True:
+        qtd = pedir_numero("Quantidade de alternativas: ", minimo=1)
+        if qtd == 2:
+            return int(qtd)
+        print("Nesta versão, o sistema trabalha exclusivamente com a comparação de 2 alternativas.")
+
+
 def nova_analise():
     """
     Função core que orquestra a execução da análise.
     Passos:
-    1. Captura a taxa base.
-    2. Captura os dados das Alternativas A e B.
-    3. Verifica se são da mesma natureza (ambos recebimentos ou ambos pagamentos).
-    4. Chama o módulo de cálculos para descapitalizar os valores ao t=0 (Valor Presente).
-    5. Passa os valores para o módulo de relatórios para formatar e exibir na tela.
-    6. Permite que o usuário salve a análise.
+    1. Valida a quantidade de alternativas suportadas.
+    2. Captura a taxa base.
+    3. Captura os dados das Alternativas A e B.
+    4. Verifica se são da mesma natureza (ambos recebimentos ou ambos pagamentos).
+    5. Chama o módulo de cálculos para descapitalizar os valores ao t=0 (Valor Presente).
+    6. Passa os valores para o módulo de relatórios para formatar e exibir na tela.
+    7. Permite que o usuário salve a análise.
     """
+    qtd = pedir_quantidade_alternativas()
     taxa, periodicidade = pedir_taxa()
 
     alternativa_a = pedir_alternativa("A", periodicidade)

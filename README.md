@@ -301,3 +301,6 @@ Conforme a **Etapa 7**, foi implementada uma suíte de testes unitários (`teste
 - Precisão no cálculo com valores decimais (ponto flutuante).
 - Comportamento de juros zerados (taxa igual a zero).
 - Regras de decisão para alternativas com valores finais iguais (empate/equivalência).
+
+- **Testes de Entradas e Validações:** Asseguram que campos não fiquem vazios, não aceitem texto quando números são exigidos, rejeitem números negativos onde não faz sentido, e que a quantidade de alternativas seja validada.
+- **Testes de Decisão:** Confirmam todos os caminhos da regra de decisão (Alternativa A melhor, Alternativa B melhor, ou Equivalentes).
