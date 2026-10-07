@@ -1,3 +1,5 @@
+import math
+
 """
 Módulo de Cálculos Financeiros
 Objetivo: Encapsular toda a lógica matemática e financeira responsável por calcular o valor do dinheiro no tempo, 
@@ -62,7 +64,7 @@ def comparar_alternativas(valor_a, valor_b, tipo):
     - 'A' se a primeira alternativa for a vencedora.
     - 'B' se a segunda alternativa for a vencedora.
     """
-    if valor_a == valor_b:
+    if math.isclose(valor_a, valor_b, rel_tol=1e-9):
         return "equivalentes"
 
     if tipo == "recebimento":

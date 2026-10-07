@@ -5,7 +5,7 @@ import os
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from main import pedir_texto, pedir_numero, pedir_quantidade_alternativas
+from main import pedir_texto, pedir_numero
 
 class TestEntradas(unittest.TestCase):
     
@@ -49,14 +49,6 @@ class TestEntradas(unittest.TestCase):
         self.assertEqual(resultado, 8.5)
         self.assertEqual(mock_input.call_count, 3)
 
-    @patch('builtins.input', side_effect=['3', '1', 'a', '2'])
-    def test_quantidade_invalida_de_alternativas(self, mock_input):
-        """Testar Quantidade inválida de alternativas"""
-        # Deve rejeitar números diferentes de 2
-        resultado = pedir_quantidade_alternativas()
-        self.assertEqual(resultado, 2)
-        # 3 (inválido), 1 (inválido), 'a' (ValueError handled in pedir_numero), 2 (válido)
-        self.assertEqual(mock_input.call_count, 4)
 
 if __name__ == '__main__':
     unittest.main()

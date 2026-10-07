@@ -18,6 +18,14 @@ def formatar_moeda(valor):
     """
     return f"R$ {valor:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
 
+def formatar_periodicidade(periodicidade, quantidade):
+    """
+    Retorna a unidade de tempo no singular ou plural.
+    Exemplo: 1 ano, 2 anos, 1 mês, 6 meses.
+    """
+    unidade = "mês" if periodicidade == "mensal" else "ano"
+    return unidade if quantidade == 1 else unidade + "s"
+
 def gerar_relatorio(a, b, vp_a, vp_b, taxa, periodicidade):
     """
     Gera o texto completo do relatório com as seguintes seções estruturadas:
@@ -40,7 +48,7 @@ def gerar_relatorio(a, b, vp_a, vp_b, taxa, periodicidade):
         "=" * 50,
         f"Data da análise: {data_analise}",
         "",
-        f"Taxa de juros utilizada: {taxa:.2%} ao {periodicidade}",
+        f"Taxa de juros utilizada: {taxa:.2%} ao {formatar_periodicidade(periodicidade, 2)}",
         "",
         "--- DADOS DAS ALTERNATIVAS ---"
     ]
@@ -49,7 +57,7 @@ def gerar_relatorio(a, b, vp_a, vp_b, taxa, periodicidade):
         linhas.append(f"\nALTERNATIVA {alternativa.nome}")
         linhas.append(f"Tipo: {alternativa.tipo.capitalize()}")
         linhas.append(f"Valor original: {formatar_moeda(alternativa.valor)}")
-        linhas.append(f"Prazo: {alternativa.prazo:g} {alternativa.unidade_prazo}")
+        linhas.append(f"Prazo: {alternativa.prazo:g} {formatar_periodicidade(alternativa.unidade_prazo, alternativa.prazo)}")
     
     linhas.append("\n--- CÁLCULOS DOS VALORES PRESENTES ---")
     linhas.append("Fórmula utilizada: VP = VF / (1 + i)^n")

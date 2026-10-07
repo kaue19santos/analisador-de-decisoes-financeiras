@@ -4,27 +4,27 @@
 
 O **Analisador de Decisões Financeiras** é uma aplicação desenvolvida para o Trabalho 1 da disciplina **Administração Financeira (CAD 167)**.
 
-A aplicação aborda o tema **Valor do Dinheiro no Tempo**, permitindo comparar alternativas financeiras que possuem valores e prazos diferentes.
+A aplicação aborda o tema **Valor do Dinheiro no Tempo**, permitindo comparar duas alternativas financeiras que possuem valores e prazos diferentes.
 
-O sistema utiliza conceitos de **Valor Presente (VP), Valor Futuro (VF), taxa de juros, capitalização e desconto** para transformar as alternativas para uma mesma referência temporal e auxiliar na tomada de decisão financeira.
+O sistema utiliza conceitos de **Valor Presente (VP), Valor Futuro (VF), taxa de juros, capitalização e desconto** para transformar valores para uma mesma referência temporal e auxiliar na tomada de decisão financeira.
 
 ---
 
 ## 2. Objetivo
 
-O objetivo da aplicação é auxiliar o usuário a determinar qual, entre duas alternativas financeiras, é mais vantajosa considerando o efeito do tempo e da taxa de juros sobre o dinheiro.
+O objetivo da aplicação é determinar qual, entre duas alternativas financeiras, é mais vantajosa considerando o efeito do tempo e da taxa de juros sobre o dinheiro.
 
-A aplicação não pretende apenas realizar cálculos isolados, mas utilizar esses cálculos para **comparar alternativas e apresentar uma conclusão financeira**.
+A aplicação não realiza apenas cálculos isolados. Ela transforma os valores para uma mesma referência temporal, compara as alternativas e apresenta uma conclusão financeira.
 
 ### Exemplo
 
 O usuário pode comparar:
 
-* **Alternativa A:** receber R$ 10.000 hoje;
-* **Alternativa B:** receber R$ 12.000 daqui a 2 anos;
-* **Taxa de referência:** 8% ao ano.
+- **Alternativa A:** receber R$ 10.000 hoje;
+- **Alternativa B:** receber R$ 12.000 daqui a 2 anos;
+- **Taxa de referência:** 8% ao ano.
 
-O sistema calcula o valor equivalente das alternativas em uma mesma data e apresenta qual possui maior valor financeiro.
+O sistema calcula o Valor Presente das alternativas e identifica qual possui maior valor financeiro.
 
 ---
 
@@ -38,269 +38,351 @@ Dessa forma, a aplicação resolve o problema de **comparar alternativas finance
 
 ---
 
-## 4. Entradas da Aplicação
+## 4. Entradas da aplicação
 
-A aplicação solicitará ao usuário os dados necessários para realizar a comparação entre as alternativas financeiras.
+A aplicação solicita ao usuário os dados necessários para realizar a comparação entre as alternativas financeiras.
 
-### 4.1 Dados gerais da análise
+### 4.1 Dados gerais
 
-| Entrada                    | Descrição                                     |
-| -------------------------- | --------------------------------------------- |
-| Quantidade de alternativas | Número de alternativas que serão comparadas   |
-| Taxa de juros              | Taxa utilizada como referência para a análise |
+| Entrada | Descrição |
+|---|---|
+| Taxa de juros | Taxa utilizada como referência |
+| Periodicidade | Periodicidade da taxa: mensal ou anual |
 
-Na primeira versão, o sistema trabalhará com **duas alternativas**.
+O sistema trabalha exclusivamente com **duas alternativas**.
 
 ### 4.2 Dados de cada alternativa
 
-Para cada alternativa, o usuário deverá informar:
+| Entrada | Descrição | Exemplo |
+|---|---|---|
+| Nome | Identificação da alternativa | Receber hoje |
+| Valor | Valor financeiro da alternativa | R$ 10.000,00 |
+| Prazo | Tempo até o recebimento ou pagamento | 2 |
+| Unidade do prazo | Mensal ou anual, igual à periodicidade da taxa | anos |
+| Tipo | Recebimento ou pagamento | recebimento |
 
-| Entrada          | Descrição                                  | Exemplo      |
-| ---------------- | ------------------------------------------ | ------------ |
-| Nome             | Identificação da alternativa               | Receber hoje |
-| Valor            | Valor financeiro da alternativa            | R$ 10.000,00 |
-| Prazo            | Tempo até o recebimento ou pagamento       | 2            |
-| Unidade do prazo | Unidade utilizada para representar o prazo | Anos         |
-| Tipo             | Natureza da operação                       | Recebimento  |
+O sistema exige que a unidade do prazo seja compatível com a periodicidade da taxa informada.
 
 ### 4.3 Exemplo de entrada
 
 ```text
-Quantidade de alternativas: 2
 
-Taxa de juros: 8% ao ano
+Taxa (%): 8
+Periodicidade (mensal/anual): anual
 
-Alternativa 1
+--- ALTERNATIVA A ---
 Nome: Receber hoje
-Valor: R$ 10.000,00
-Prazo: 0
-Unidade: anos
-Tipo: Recebimento
+Valor: 10000
+Prazo (anual): 0
+Tipo (recebimento/pagamento): recebimento
 
-Alternativa 2
+--- ALTERNATIVA B ---
 Nome: Receber daqui a 2 anos
-Valor: R$ 12.000,00
-Prazo: 2
-Unidade: anos
-Tipo: Recebimento
+Valor: 12000
+Prazo (anual): 2
+Tipo (recebimento/pagamento): recebimento
 ```
 
 ---
 
-## 5. Cálculos da Aplicação
+## 5. Cálculos da aplicação
 
-A aplicação utilizará os conceitos de Valor Presente e Valor Futuro para transformar e comparar valores financeiros que ocorrem em diferentes momentos.
+A aplicação utiliza os conceitos de Valor Presente e Valor Futuro para trabalhar com valores financeiros em diferentes momentos.
 
 ### 5.1 Valor Presente
 
-Será utilizado quando uma alternativa possuir um valor futuro que precise ser convertido para a data de referência da análise.
+O Valor Presente é utilizado para trazer um valor futuro para a data de referência da análise.
 
 Fórmula:
 
+```text
 VP = VF / (1 + i)^n
+```
 
 Onde:
 
-* VP = Valor Presente;
-* VF = Valor Futuro;
-* i = taxa de juros por período;
-* n = número de períodos.
+- **VP** = Valor Presente;
+- **VF** = Valor Futuro;
+- **i** = taxa de juros por período;
+- **n** = número de períodos.
 
 ### 5.2 Valor Futuro
 
-Será utilizado quando for necessário projetar um valor presente para uma data futura.
+O sistema também possui a função de cálculo do Valor Futuro, utilizada para projetar um valor presente para uma data futura.
 
 Fórmula:
 
+```text
 VF = VP × (1 + i)^n
+```
 
 Onde:
 
-* VF = Valor Futuro;
-* VP = Valor Presente;
-* i = taxa de juros por período;
-* n = número de períodos.
+- **VF** = Valor Futuro;
+- **VP** = Valor Presente;
+- **i** = taxa de juros por período;
+- **n** = número de períodos.
 
-### 5.3 Utilização dos cálculos
+Na comparação principal da aplicação, o **Valor Presente** é utilizado como referência.
 
-Para a comparação principal da aplicação, os valores das alternativas serão convertidos para uma mesma data de referência, priorizando o cálculo do Valor Presente.
+### 5.3 Diferença absoluta
 
-### 5.4 Diferença absoluta
-
-Após a conversão dos valores, o sistema calculará a diferença absoluta:
-
-Diferença = |Valor A - Valor B|
-
-O resultado será apresentado em reais.
-
-### 5.5 Diferença percentual
-
-A aplicação também calculará a diferença percentual entre as alternativas, utilizando a Alternativa A como referência:
-
-Diferença % = ((Valor B - Valor A) / Valor A) × 100
-
-### 5.6 Arredondamento
-
-Os cálculos intermediários não serão arredondados.
-
-Os resultados apresentados ao usuário serão formatados com:
-
-* 2 casas decimais para valores monetários;
-* 2 casas decimais para percentuais.
-
-Os valores monetários serão apresentados no formato brasileiro, por exemplo:
-
-R$ 10.288,33
-
----
-
-## 6. Regra de Decisão
-
-A aplicação determinará a alternativa mais vantajosa com base nos **valores equivalentes calculados na mesma data de referência**, utilizando a taxa de juros e o prazo informados pelo usuário.
-
-Antes da comparação, as alternativas serão convertidas para uma mesma data de referência, permitindo comparar valores que ocorrem em momentos diferentes.
-
-### Regra de decisão
-
-A regra de decisão dependerá do tipo da operação:
-
-* Para **recebimentos**, será considerada mais vantajosa a alternativa que apresentar o **maior Valor Presente**.
-* Para **pagamentos**, será considerada mais vantajosa a alternativa que apresentar o **menor Valor Presente**.
-
-### Compatibilidade entre alternativas
-
-Para garantir uma comparação financeiramente coerente, as alternativas comparadas deverão possuir o mesmo tipo de operação.
-
-São permitidas:
-
-* Recebimento × Recebimento;
-* Pagamento × Pagamento.
-
-Não será permitida:
-
-* Recebimento × Pagamento.
-
-Caso o usuário informe alternativas de tipos diferentes, o sistema deverá informar que as alternativas não podem ser comparadas e solicitar novos dados.
-
-### Data de referência
-
-A **data de referência será o momento presente (t = 0)**.
-
-Dessa forma, os valores futuros serão convertidos para **Valor Presente (VP)** antes da comparação.
-
-A aplicação deverá utilizar a seguinte relação:
-
-**VP = VF / (1 + i)^n**
-
-Onde:
-
-* **VP** = Valor Presente;
-* **VF** = Valor Futuro;
-* **i** = taxa de juros por período;
-* **n** = número de períodos.
-
-A taxa de juros e o prazo deverão utilizar a mesma periodicidade. Quando necessário, o prazo será convertido para a periodicidade utilizada pela taxa.
-
-### Empate
-
-Caso os valores equivalentes das alternativas sejam iguais, o sistema deverá informar que as alternativas são **financeiramente equivalentes**, considerando a taxa de juros, o prazo e as demais condições informadas.
-
-### Resumo da decisão
-
-| Situação                    | Regra                                     |
-| --------------------------- | ----------------------------------------- |
-| Recebimento                 | Maior Valor Presente = melhor alternativa |
-| Pagamento                   | Menor Valor Presente = melhor alternativa |
-| Valores equivalentes iguais | Alternativas financeiramente equivalentes |
-| Tipos diferentes            | Comparação não permitida                  |
-
----
-
-## 7. Saída esperada
-
-Após o processamento, a aplicação deverá apresentar um relatório contendo:
-
-* Dados informados pelo usuário;
-* Taxa de juros utilizada;
-* Prazo de cada alternativa;
-* Valor original de cada alternativa;
-* Valor equivalente calculado;
-* Diferença entre as alternativas;
-* Alternativa considerada mais vantajosa;
-* Justificativa da decisão.
-
-### Exemplo de saída
+Após a conversão dos valores, o sistema calcula:
 
 ```text
-========================================
-ANÁLISE DE DECISÃO FINANCEIRA
-========================================
+Diferença = |Valor A - Valor B|
+```
 
-Taxa utilizada: 8,00% ao ano
+### 5.4 Diferença percentual
 
-ALTERNATIVA A
-Descrição: Receber hoje
-Valor: R$ 10.000,00
-Prazo: 0 anos
-Valor equivalente: R$ 10.000,00
+A diferença percentual utiliza a Alternativa A como referência:
 
-ALTERNATIVA B
-Descrição: Receber daqui a 2 anos
-Valor: R$ 12.000,00
-Prazo: 2 anos
-Valor equivalente: R$ 10.288,33
+```text
+Diferença % = ((Valor B - Valor A) / Valor A) × 100
+```
 
-----------------------------------------
-RESULTADO
-----------------------------------------
+### 5.5 Arredondamento
 
-Diferença: R$ 288,33
+Os cálculos intermediários não são arredondados.
 
-Alternativa mais vantajosa:
-ALTERNATIVA B
+Os resultados apresentados ao usuário utilizam:
 
-Justificativa:
-Considerando a taxa de 8,00% ao ano,
-a Alternativa B apresenta maior valor
-equivalente na data de referência.
-========================================
+- 2 casas decimais para valores monetários;
+- 2 casas decimais para percentuais.
+
+Os valores monetários são apresentados no formato brasileiro:
+
+```text
+R$ 10.288,33
 ```
 
 ---
 
-## 8. Conceitos financeiros utilizados
+## 6. Regra de decisão
 
-O projeto será fundamentado nos seguintes conceitos:
+A aplicação compara os **Valores Presentes das duas alternativas**, considerando a mesma data de referência.
 
-* Valor do Dinheiro no Tempo;
-* Valor Presente;
-* Valor Futuro;
-* Taxa de juros;
-* Capitalização;
-* Desconto.
+### Recebimentos
+
+Para recebimentos, a alternativa com o **maior Valor Presente** é considerada mais vantajosa.
+
+### Pagamentos
+
+Para pagamentos, a alternativa com o **menor Valor Presente** é considerada mais vantajosa.
+
+### Compatibilidade entre alternativas
+
+As alternativas precisam possuir o mesmo tipo de operação.
+
+São permitidas:
+
+- Recebimento × Recebimento;
+- Pagamento × Pagamento.
+
+Não é permitida:
+
+- Recebimento × Pagamento.
+
+Quando os tipos são diferentes, o sistema informa que as alternativas não podem ser comparadas.
+
+### Data de referência
+
+A data de referência utilizada pelo sistema é o **momento presente (t = 0)**.
+
+Os valores são convertidos para essa referência utilizando:
+
+```text
+VP = VF / (1 + i)^n
+```
+
+A taxa de juros e o prazo devem possuir a **mesma periodicidade**. O sistema não realiza conversão automática entre mensal e anual.
+
+### Empate
+
+Caso os Valores Presentes sejam iguais, as alternativas são consideradas **financeiramente equivalentes**, considerando a taxa de juros, o prazo e as demais condições informadas.
+
+### Resumo da decisão
+
+| Situação | Regra |
+|---|---|
+| Recebimento | Maior Valor Presente = melhor alternativa |
+| Pagamento | Menor Valor Presente = melhor alternativa |
+| Valores equivalentes | Alternativas financeiramente equivalentes |
+| Tipos diferentes | Comparação não permitida |
 
 ---
 
+## 7. Relatório
+
+Após o processamento, o sistema gera um relatório contendo:
+
+- título da análise;
+- data e horário da análise;
+- taxa de juros utilizada;
+- dados das alternativas;
+- tipo da operação;
+- prazo;
+- valor original;
+- fórmula utilizada;
+- memória de cálculo;
+- Valor Presente de cada alternativa;
+- diferença absoluta;
+- diferença percentual;
+- alternativa mais vantajosa;
+- justificativa da decisão.
+
+O relatório é exibido diretamente no terminal após a análise.
+
+O usuário também pode escolher salvar o relatório em um arquivo `.txt`.
+
+Os arquivos são gerados automaticamente com data e horário no nome.
+
 ---
 
-## 9. Documentação e Comentários
+## 8. Estrutura do projeto
 
-Conforme exigido na **Etapa 6**, todo o código-fonte desta aplicação foi extensivamente documentado. 
-- Foram adicionadas Docstrings explicativas no início de cada módulo detalhando o seu propósito.
-- As funções e classes possuem descrições de comportamento, explicando o fluxo da aplicação.
-- As funções matemáticas que realizam o cálculo de Valor Presente e Futuro documentam a exata fórmula utilizada.
-- As regras de decisão (diferenciação entre recebimentos e pagamentos) e validações estão devidamente comentadas.
+```text
+analisador-decisoes-financeiras/
+│
+├── README.md
+├── main.py
+├── calculos.py
+├── modelos.py
+├── relatorio.py
+│
+└── testes/
+    ├── teste_calculos.py
+    ├── teste_decisao.py
+    └── teste_entrada.py
+```
+
+### Responsabilidade dos arquivos
+
+- **main.py:** entrada de dados, validações e fluxo principal da aplicação.
+- **modelos.py:** definição do modelo `Alternativa`.
+- **calculos.py:** fórmulas e regras matemáticas da análise financeira.
+- **relatorio.py:** geração e salvamento dos relatórios.
+- **testes/:** testes automatizados do sistema.
 
 ---
 
-## 10. Testes
+## 9. Como executar a aplicação
 
-Conforme a **Etapa 7**, foi implementada uma suíte de testes unitários (`testes/teste_calculos.py`) focada em validar a precisão matemática da ferramenta. Foram criados testes para:
-- Cálculo exato de Valor Presente e Valor Futuro.
-- Comportamento das fórmulas com diferentes taxas e diferentes prazos.
-- Precisão no cálculo com valores decimais (ponto flutuante).
-- Comportamento de juros zerados (taxa igual a zero).
-- Regras de decisão para alternativas com valores finais iguais (empate/equivalência).
+### Pré-requisito
 
-- **Testes de Entradas e Validações:** Asseguram que campos não fiquem vazios, não aceitem texto quando números são exigidos, rejeitem números negativos onde não faz sentido, e que a quantidade de alternativas seja validada.
-- **Testes de Decisão:** Confirmam todos os caminhos da regra de decisão (Alternativa A melhor, Alternativa B melhor, ou Equivalentes).
+É necessário ter o **Python 3** instalado.
+
+Para verificar a instalação:
+
+```bash
+python --version
+```
+
+ou, dependendo do sistema:
+
+```bash
+python3 --version
+```
+
+### Executar a aplicação
+
+Na pasta raiz do projeto, execute:
+
+```bash
+python main.py
+```
+
+ou:
+
+```bash
+python3 main.py
+```
+
+O menu inicial será exibido:
+
+```text
+========================================
+ANALISADOR DE DECISÕES FINANCEIRAS
+========================================
+1 - Nova análise
+0 - Sair
+```
+
+Selecione `1` para iniciar uma análise.
+
+Após informar os dados das duas alternativas, o sistema exibirá o relatório da análise e perguntará se o usuário deseja salvá-lo em um arquivo `.txt`.
+
+---
+
+## 10. Como executar os testes
+
+Na pasta raiz do projeto, execute:
+
+```bash
+python -m unittest discover
+```
+
+ou:
+
+```bash
+python3 -m unittest discover
+```
+
+ou 
+
+```bash
+python3 -m unittest discover -s testes -p "teste_*.py"
+```
+
+Os testes verificam:
+
+- cálculo do Valor Presente;
+- cálculo do Valor Futuro;
+- diferentes taxas;
+- diferentes prazos;
+- valores decimais;
+- taxa igual a zero;
+- valores equivalentes;
+- diferença percentual;
+- regras de decisão;
+- validação de entradas;
+- campos vazios;
+- valores negativos;
+- textos em campos numéricos;
+
+O resultado esperado é a execução dos testes sem falhas, indicando:
+
+```text
+OK
+```
+
+---
+
+## 11. Documentação e comentários
+
+O código-fonte foi documentado para facilitar a compreensão da aplicação.
+
+Foram adicionadas Docstrings explicativas no início dos módulos, funções e classes.
+
+A documentação apresenta:
+
+- objetivo de cada módulo;
+- funcionamento das principais funções;
+- fórmulas financeiras utilizadas;
+- variáveis importantes;
+- regras de decisão;
+- validações das entradas;
+- funcionamento do relatório.
+
+---
+
+## 12. Conceitos financeiros utilizados
+
+O projeto é fundamentado nos seguintes conceitos:
+
+- Valor do Dinheiro no Tempo;
+- Valor Presente;
+- Valor Futuro;
+- Taxa de juros;
+- Capitalização;
+- Desconto.

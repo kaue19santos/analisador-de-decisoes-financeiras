@@ -75,5 +75,9 @@ class TestCalculosFinanceiros(unittest.TestCase):
         resultado = comparar_alternativas(vp_a, vp_b, "recebimento")
         self.assertEqual(resultado, "equivalentes")
 
+    def test_diferenca_percentual(self):
+        resultado = calcular_diferenca_percentual(100, 120)
+        self.assertEqual(resultado, 20.0)
+
 if __name__ == '__main__':
     unittest.main()
